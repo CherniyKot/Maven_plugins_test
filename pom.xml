@@ -21,7 +21,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
-    <classnames>Programm</classnames>
+    <classnames>Programm Point</classnames>
   </properties>
 
   <dependencies>
@@ -112,7 +112,7 @@
       <plugin>
         <groupId>cherniykot.plugins</groupId>
         <artifactId>excel-validation-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
         <executions>
           <execution>
             <id>execution1</id>
@@ -123,7 +123,7 @@
 
             <configuration>
               <spreadsheetId>1Ry739nTeDgEDXIxVIJZG8SUlKCKeohxOHn3AKsIxJ_w</spreadsheetId>
-
+              <credentials>${basedir}/src/main/resources/credentials.json</credentials>
               <conditions>
 
                 <condition>
@@ -217,25 +217,6 @@
       </plugin>
 
       <plugin>
-        <groupId>cherniykot.plugins</groupId>
-        <artifactId>svn-ban-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-            <configuration>
-              <banned>
-                <class>Java</class>
-              </banned>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <version>3.0.0</version>
@@ -249,11 +230,7 @@
 
             <configuration>
               <target name="diff">
-                <taskdef resource="net/sf/antcontrib/antlib.xml">
-                  <classpath>
-                    <pathelement location="c:/lib/ant-contrib-1.0b3.jar"/>
-                  </classpath>
-                </taskdef>
+                <taskdef resource="net/sf/antcontrib/antlib.xml"/>
 
                 <property name="found-diff" value="true"/>
 
@@ -261,7 +238,6 @@
                 <exec executable="svn" outputproperty="svn_diff_result">
                   <arg value="status"/>
                 </exec>
-
                 <for param="name" list="${classnames}" delimiter=" ">
                   <sequential>
                     <if>
