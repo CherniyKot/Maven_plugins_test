@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>Test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>Test</name>
+  <url>https://github.com/CherniyKot</url>
+
+
+  <scm>
+    <connection>scm:svn:file:///svnrep/trunk</connection>
+    <developerConnection>scm:svn:file:///svnrep/trunk</developerConnection>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <classnames>Programm</classnames>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+          <configuration>
+            <archive>
+
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>lib/</classpathPrefix>
+                <mainClass>org.example.Programm</mainClass>
+              </manifest>
+              <manifestSections>
+                <manifestSection>
+                  <name>Checksums</name>
+                  <manifestEntries>
+                    <Point_MD5>${hashsum.point.java.md5}</Point_MD5>
+                    <Program_MD5>${hashsum.programm.java.md5}</Program_MD5>
+                    <Point_SHA-1>${hashsum.point.java.sha-1}</Point_SHA-1>
+                    <Program_SHA-1>${hashsum.programm.java.sha-1}</Program_SHA-1>
+                  </manifestEntries>
+                </manifestSection>
+              </manifestSections>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.9.0</version>
+        </plugin>
+
+
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.11.2</version>
+        <configuration>
+          <connectionType>connection</connectionType>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>cherniykot.plugins</groupId>
+        <artifactId>excel-validation-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>execution1</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+
+            <configuration>
+              <spreadsheetId>1Ry739nTeDgEDXIxVIJZG8SUlKCKeohxOHn3AKsIxJ_w</spreadsheetId>
+
+              <conditions>
+
+                <condition>
+                  <cell>Поток 1.6!M12</cell>
+                  <condition>greater_equal</condition>
+                  <value>2</value>
+                </condition>
+
+                <condition>
+                  <cell>Поток 1.6!Q12</cell>
+                  <condition>greater_equal</condition>
+                  <value>2</value>
+                </condition>
+
+                <condition>
+                  <cell>Поток 1.6!U12</cell>
+                  <condition>greater_equal</condition>
+                  <value>2</value>
+                </condition>
+
+                <condition>
+                  <cell>Поток 1.6!AD12</cell>
+                  <condition>greater_equal</condition>
+                  <value>1</value>
+                </condition>
+
+                <condition>
+                  <cell>Поток 1.6!AF12</cell>
+                  <condition>greater_equal</condition>
+                  <value>1</value>
+                </condition>
+
+              </conditions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>net.nicoulaj.maven.plugins</groupId>
+        <artifactId>checksum-maven-plugin</artifactId>
+        <version>1.9</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>files</goal>
+            </goals>
+            <phase>validate</phase>
+            <configuration>
+              <fileSets>
+                <fileSet>
+                  <directory>${project.basedir}/src/main/java/</directory>
+                </fileSet>
+              </fileSets>
+              <individualFiles>false</individualFiles>
+              <csvSummary>false</csvSummary>
+              <xmlSummary>true</xmlSummary>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>cherniykot.plugins</groupId>
+        <artifactId>properties-parse-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>addchecksum</goal>
+            </goals>
+            <configuration>
+              <basedir>${project.basedir}</basedir>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>cherniykot.plugins</groupId>
+        <artifactId>svn-ban-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <banned>
+                <class>Java</class>
+              </banned>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>diff</id>
+
+            <goals>
+              <goal>run</goal>
+            </goals>
+
+            <configuration>
+              <target name="diff">
+                <taskdef resource="net/sf/antcontrib/antlib.xml">
+                  <classpath>
+                    <pathelement location="c:/lib/ant-contrib-1.0b3.jar"/>
+                  </classpath>
+                </taskdef>
+
+                <property name="found-diff" value="true"/>
+
+                <echo message="help me"/>
+                <exec executable="svn" outputproperty="svn_diff_result">
+                  <arg value="status"/>
+                </exec>
+
+                <for param="name" list="${classnames}" delimiter=" ">
+                  <sequential>
+                    <if>
+                      <contains string="${svn_diff_result}" substring="@{name}.java"/>
+                      <then>
+                        <var name="found-diff" unset="true"/>
+                        <property name="found-diff" value="false"/>
+                      </then>
+                    </if>
+                  </sequential>
+                </for>
+
+                <echo message="finished diff"/>
+
+              <if>
+                <equals arg1="${found-diff}" arg2="true"/>
+                <then>
+                  <exec executable="svn">
+                    <arg line="add"/>
+                    <arg value="*"/>
+                    <arg value="--force"/>
+                  </exec>
+
+                  <exec executable="svn">
+                    <arg value="commit"/>
+                    <arg value="-m 'ant commit'"/>
+                  </exec>
+                  <echo message="commited"/>
+                </then>
+                <else>
+                  <echo message="banned classes found"/>
+                </else>
+              </if>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+
+
+        <dependencies>
+          <dependency>
+            <groupId>ant-contrib</groupId>
+            <artifactId>ant-contrib</artifactId>
+            <version>1.0b3</version>
+            <exclusions>
+              <exclusion>
+                <groupId>ant</groupId>
+                <artifactId>ant</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-nodeps</artifactId>
+            <version>1.8.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
